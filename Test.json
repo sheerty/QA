@@ -1,0 +1,1478 @@
+{
+	"info": {
+		"_postman_id": "2817f026-7b95-4164-adcb-01f92bf4d77c",
+		"name": "Tests LIIS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25873166"
+	},
+	"item": [
+		{
+			"name": "LIIS Test v.1",
+			"item": [
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "Test Posts",
+							"item": [
+								{
+									"name": "Get posts Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"    pm.response.to.be.ok\r",
+													"    pm.response.to.be.json\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Test body\", function(){\r",
+													"    const GetData = pm.response.json()\r",
+													"    GetData.forEach(post=>{\r",
+													"    pm.expect(post).to.have.property(\"title\");\r",
+													"    pm.expect(post).to.have.property(\"content\");\r",
+													"    pm.expect(post).to.have.property(\"id\");\r",
+													"    pm.expect(post).to.have.property(\"publication_datetime\");\r",
+													"    pm.expect(post).to.have.property(\"author\");\r",
+													"    })\r",
+													"\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/posts",
+											"protocol": "https",
+											"host": [
+												"hr",
+												"recruit",
+												"liis",
+												"su"
+											],
+											"path": [
+												"qa0",
+												"v1",
+												"api",
+												"kubayigor@yahoo.com",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Post post Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Test body\", function(){\r",
+													"    const GetData = pm.response.json()\r",
+													"    pm.expect(GetData).to.have.property(\"title\");\r",
+													"    pm.expect(GetData).to.have.property(\"content\");\r",
+													"    pm.expect(GetData).to.have.property(\"id\");\r",
+													"    pm.expect(GetData).to.have.property(\"publication_datetime\");\r",
+													"    pm.expect(GetData).to.have.property(\"title\");\r",
+													"\r",
+													"});\r",
+													"pm.test(\"Author is number\", function(){\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.author).to.be.a('number')\r",
+													"});\r",
+													"pm.test(\"Conent is string\", function(){\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.content).to.be.a('string')\r",
+													"});\r",
+													"pm.test(\"title is string\", function(){\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.title).to.be.a('string')\r",
+													"});\r",
+													"pm.test(\"id is number\", function(){\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.id).to.be.a('number')\r",
+													"});\r",
+													"pm.test(\"publication_datetime is string\", function(){\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.publication_datetime).to.be.a('string')\r",
+													"});\r",
+													"let postID = pm.environment.get(\"postID\")\r",
+													"let body = pm.response.json()\r",
+													"pm.environment.set(\"postID\",body.id);\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "123",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"yourpostname\",\n    \"content\": \"yourpostcontent\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/posts",
+											"protocol": "https",
+											"host": [
+												"hr",
+												"recruit",
+												"liis",
+												"su"
+											],
+											"path": [
+												"qa0",
+												"v1",
+												"api",
+												"kubayigor@yahoo.com",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get post Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Test body\", function(){\r",
+													"    const GetData = pm.response.json()\r",
+													"    pm.expect(GetData).to.have.property(\"title\");\r",
+													"    pm.expect(GetData).to.have.property(\"content\");\r",
+													"    pm.expect(GetData).to.have.property(\"id\");\r",
+													"    pm.expect(GetData).to.have.property(\"publication_datetime\");\r",
+													"    pm.expect(GetData).to.have.property(\"author\");\r",
+													"\r",
+													"});\r",
+													"pm.test(\"Author is number\", function(){\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.author).to.be.a('number')\r",
+													"});\r",
+													"pm.test(\"Conent is string\", function(){\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.content).to.be.a('string')\r",
+													"});\r",
+													"pm.test(\"title is string\", function(){\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.title).to.be.a('string')\r",
+													"});\r",
+													"pm.test(\"id is number\", function(){\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.id).to.be.a('number')\r",
+													"});\r",
+													"pm.test(\"publication_datetime is string\", function(){\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.publication_datetime).to.be.a('string')\r",
+													"});\r",
+													"pm.test(\"Response time is less than 350ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(350);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/post/6254",
+											"protocol": "https",
+											"host": [
+												"hr",
+												"recruit",
+												"liis",
+												"su"
+											],
+											"path": [
+												"qa0",
+												"v1",
+												"api",
+												"kubayigor@yahoo.com",
+												"post",
+												"6254"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Put post Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Message Updated\", function() {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.message).to.eql(\"updated\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"type Sucess\", function() {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.type).to.eql(\"success\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "ruby",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "123",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"yournewpostdsadsadsadsadasname\",\n    \"content\": \"yournewpostcontent\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/post/6208",
+											"protocol": "https",
+											"host": [
+												"hr",
+												"recruit",
+												"liis",
+												"su"
+											],
+											"path": [
+												"qa0",
+												"v1",
+												"api",
+												"kubayigor@yahoo.com",
+												"post",
+												"6208"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete post Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "123",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/post/{{postID}}",
+											"protocol": "https",
+											"host": [
+												"hr",
+												"recruit",
+												"liis",
+												"su"
+											],
+											"path": [
+												"qa0",
+												"v1",
+												"api",
+												"kubayigor@yahoo.com",
+												"post",
+												"{{postID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Test Comments",
+					"item": [
+						{
+							"name": "Get comments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200)\r",
+											"    pm.response.to.be.ok\r",
+											"    pm.response.to.be.json\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Test body\", function(){\r",
+											"    const GetData = pm.response.json()\r",
+											"    GetData.forEach(comments=>{\r",
+											"    pm.expect(comments).to.have.property(\"title\");\r",
+											"    pm.expect(comments).to.have.property(\"content\");\r",
+											"    pm.expect(comments).to.have.property(\"id\");\r",
+											"    pm.expect(comments).to.have.property(\"publication_datetime\");\r",
+											"    pm.expect(comments).to.have.property(\"author\");\r",
+											"    pm.expect(comments).to.have.property(\"post\")\r",
+											"    })\r",
+											"\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"kubayigor@yahoo.com",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post comment",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let commentID = pm.environment.get(\"commentID\")\r",
+											"let body = pm.response.json()\r",
+											"pm.environment.set(\"commentID\",body.id);\r",
+											"\r",
+											"\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Test body\", function(){\r",
+											"    const GetData = pm.response.json()\r",
+											"    pm.expect(GetData).to.have.property(\"title\");\r",
+											"    pm.expect(GetData).to.have.property(\"content\");\r",
+											"    pm.expect(GetData).to.have.property(\"id\");\r",
+											"    pm.expect(GetData).to.have.property(\"publication_datetime\");\r",
+											"    pm.expect(GetData).to.have.property(\"title\");\r",
+											"    pm.expect(GetData).to.have.property(\"post\")\r",
+											"\r",
+											"});\r",
+											"pm.test(\"Author is number\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.author).to.be.a('number')\r",
+											"});\r",
+											"pm.test(\"Conent is string\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content).to.be.a('string')\r",
+											"});\r",
+											"pm.test(\"title is string\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.title).to.be.a('string')\r",
+											"});\r",
+											"pm.test(\"id is number\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.be.a('number')\r",
+											"});\r",
+											"pm.test(\"publication_datetime is string\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.publication_datetime).to.be.a('string')\r",
+											"});\r",
+											"pm.test(\"post is number\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.post).to.be.a('number')\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"yourcommenttitle\",\n    \"content\": \"yourcommenttext\",\n    \"post\": 6256\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"kubayigor@yahoo.com",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Test body\", function(){\r",
+											"    const GetData = pm.response.json()\r",
+											"    pm.expect(GetData).to.have.property(\"title\");\r",
+											"    pm.expect(GetData).to.have.property(\"content\");\r",
+											"    pm.expect(GetData).to.have.property(\"id\");\r",
+											"    pm.expect(GetData).to.have.property(\"publication_datetime\");\r",
+											"    pm.expect(GetData).to.have.property(\"author\");\r",
+											"    pm.expect(GetData).to.have.property(\"post\")\r",
+											"\r",
+											"});\r",
+											"pm.test(\"Author is number\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.author).to.be.a('number')\r",
+											"});\r",
+											"pm.test(\"Conent is string\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.content).to.be.a('string')\r",
+											"});\r",
+											"pm.test(\"title is string\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.title).to.be.a('string')\r",
+											"});\r",
+											"pm.test(\"id is number\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.be.a('number')\r",
+											"});\r",
+											"pm.test(\"publication_datetime is string\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.publication_datetime).to.be.a('string')\r",
+											"});\r",
+											"pm.test(\"post is number\", function(){\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.post).to.be.a('number')\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/comment/{{commentID}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"kubayigor@yahoo.com",
+										"comment",
+										"{{commentID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Message Updated\", function() {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"updated\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"type Sucess\", function() {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.type).to.eql(\"success\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"yourdsadsddadsafname\",\n    \"content\": \"yournewpfasddddsadasdsadsadontent\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/comment/{{commentID}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"kubayigor@yahoo.com",
+										"comment",
+										"{{commentID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/comment/{{commentID}}",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v1",
+										"api",
+										"kubayigor@yahoo.com",
+										"comment",
+										"{{commentID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Test sign in",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"test body \", function(){\r",
+									"    let getdata = pm.response.json()\r",
+									"    pm.expect(getdata).to.have.property(\"username\")\r",
+									"    pm.expect(getdata).to.have.property(\"password\")\r",
+									"    pm.expect(getdata).to.have.property(\"id\")\r",
+									"    pm.expect(getdata).to.have.property(\"email\")\r",
+									"});\r",
+									"pm.test(\"username is string\", function(){\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.username).to.be.a('string')\r",
+									"});\r",
+									"pm.test(\"email is string\", function(){\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.email).to.be.a('string')\r",
+									"});\r",
+									"pm.test(\"password is string\", function(){\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.password).to.be.a('string')\r",
+									"});\r",
+									"pm.test(\"id is number\", function(){\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.be.a('number')\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "kkkkkkkkkk",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{$randomFileName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"dsad123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hr.recruit.liis.su/qa0/v1/api/kubayigor@yahoo.com/sign-in",
+							"protocol": "https",
+							"host": [
+								"hr",
+								"recruit",
+								"liis",
+								"su"
+							],
+							"path": [
+								"qa0",
+								"v1",
+								"api",
+								"kubayigor@yahoo.com",
+								"sign-in"
+							]
+						},
+						"description": "Required fields: username, email, password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LIIS Test v.2",
+			"item": [
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "Get posts pagination",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/kubayigor@yahoo.com/posts?page=1",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"kubayigor@yahoo.com",
+										"posts"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get posts",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/kubayigor@yahoo.com/posts",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"kubayigor@yahoo.com",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post post",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "user",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"postname\",\n    \"content\": \"postcontent\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/kubayigor@yahoo.com/posts",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"kubayigor@yahoo.com",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get post",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/kubayigor@yahoo.com/post/1",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"kubayigor@yahoo.com",
+										"post",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put post",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "yourpassword",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "yourusername",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"yournewpostname\",\n    \"content\": \"yournewpostcontent\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/kubayigor@yahoo.com/post/1",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"kubayigor@yahoo.com",
+										"post",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete post",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "yourpassword",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "yourusername",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/kubayigor@yahoo.com/post/1",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"kubayigor@yahoo.com",
+										"post",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comments",
+					"item": [
+						{
+							"name": "Post comment",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "yourpassword",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "yourusername",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"yourcommenttitle\",\n    \"text\": \"yourcommenttext\",\n    \"post\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/<tester>/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"<tester>",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get comments",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/<tester>/comments",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"<tester>",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get comment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/<tester>/comment/1",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"<tester>",
+										"comment",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put comment",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "yourpassword",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "yourusername",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"yourdsadsadsafname\",\n    \"text\": \"yournewpfasdsadasdsadsadontent\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/<tester>/comment/21",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"<tester>",
+										"comment",
+										"21"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get comments pagination",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/<tester>/comments?page=1",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"<tester>",
+										"comments"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete comment",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "yourpassword",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "yourusername",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://hr.recruit.liis.su/qa0/v2/api/<tester>/comment/1",
+									"protocol": "https",
+									"host": [
+										"hr",
+										"recruit",
+										"liis",
+										"su"
+									],
+									"path": [
+										"qa0",
+										"v2",
+										"api",
+										"<tester>",
+										"comment",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "sign-in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"yourusername\",\n    \"email\": \"youremail\",\n    \"password\": \"yourpassword\",\n    \"first_name\": \"yourfirstname\",\n    \"middle_name\": \"yourmiddlename\",\n    \"last_name\": \"yourlastname\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hr.recruit.liis.su/qa0/v2/api/kubayigor@yahoo.com/sign-in",
+							"protocol": "https",
+							"host": [
+								"hr",
+								"recruit",
+								"liis",
+								"su"
+							],
+							"path": [
+								"qa0",
+								"v2",
+								"api",
+								"kubayigor@yahoo.com",
+								"sign-in"
+							]
+						},
+						"description": "Required fields: username, email, password.\nOptional fields: first_name, middle_name, last_name."
+					},
+					"response": []
+				},
+				{
+					"name": "Grant user admin role",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "yourpassword",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "yourusername",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hr.recruit.liis.su/qa0/v2/api/kubayigor@yahoo.com/make_admin",
+							"protocol": "https",
+							"host": [
+								"hr",
+								"recruit",
+								"liis",
+								"su"
+							],
+							"path": [
+								"qa0",
+								"v2",
+								"api",
+								"kubayigor@yahoo.com",
+								"make_admin"
+							]
+						},
+						"description": "Grant user admin role so that he can put and delete foreign entities."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "123",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
