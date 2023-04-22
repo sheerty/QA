@@ -1,0 +1,806 @@
+{
+	"info": {
+		"_postman_id": "e76ce96d-a7b7-465b-9080-a3d361a97fc7",
+		"name": "Функциональные тест кейсы",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25873166"
+	},
+	"item": [
+		{
+			"name": "Тест кейсы создания юзера",
+			"item": [
+				{
+					"name": "Создание Юзера",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Body matches id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"Name\": \"String\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/CreateUser",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"CreateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание Юзера с невалидным данными",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"Name\": 13213\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/CreateUser",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"CreateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание Юзера с пустым body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/CreateUser",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"CreateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание Юзера с пустым полем Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"Name\":\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/CreateUser",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"CreateUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Тест кейсы получении инфы по ID",
+			"item": [
+				{
+					"name": "Получение инфы по ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches Name, Age\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Name, Age\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": \"String\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/GetUser",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"GetUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение инфы с пустым body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/GetUser",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"GetUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение инфы с несуществующим ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": \"oiuoiu\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/GetUser",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"GetUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение инфы с невалидным ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": oiuoiu\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/GetUser",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"GetUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Тест кейсы утсановки возраста для юзера",
+			"item": [
+				{
+					"name": "Установка возраста для юзера",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": \"String\",\r\n   \"Age \": Int32\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/SetUserAge",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"SetUserAge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Установка возраста с невалидным ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": String,\r\n   \"Age \": Int32\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/SetUserAge",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"SetUserAge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Установка возраста с несуществующим ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": \"d\",\r\n   \"Age \": Int32\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/SetUserAge",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"SetUserAge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Установка возраста с невалидными данными для возраста",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": \"String\",\r\n   \"Age \": abc\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/SetUserAge",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"SetUserAge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Установка возраста с пустым полем Age",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": \"String\",\r\n   \"Age \":\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/SetUserAge",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"SetUserAge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Установка возраста с пустым полем ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\":,\r\n   \"Age \": 32\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/SetUserAge",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"SetUserAge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Установка возраста с пустым JSON",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/SetUserAge",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"SetUserAge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Установка возраста с пустым полями",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\":\r\n   \"Age \":\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://host:80/SetUserAge",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"SetUserAge"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Тест кейсы получения возраста юзера",
+			"item": [
+				{
+					"name": "Получение группы по возрасту",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches AgeGroup\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"AgeGroup\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://host:80/{id}/GetAgeGroupById",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"{id}",
+								"GetAgeGroupById"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение группы c несуществующим ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://host:80/{id}/GetAgeGroupById",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"{id}",
+								"GetAgeGroupById"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение группы c невалидным ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://host:80/abc/GetAgeGroupById",
+							"protocol": "http",
+							"host": [
+								"host"
+							],
+							"port": "80",
+							"path": [
+								"abc",
+								"GetAgeGroupById"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
